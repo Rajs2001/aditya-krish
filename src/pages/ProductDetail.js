@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import Loader from '../components/Loader'
 
 export default function ProductDetail({ products }) {
   const { productId } = useParams();
@@ -15,7 +16,12 @@ export default function ProductDetail({ products }) {
     }
   }, [productId, products]);
 
-  if (!product) return <div>Loading...</div>;
+  if (!product) return <Loader/>;
+
+
+  const buynow =()=>{
+    alert(product.Title);
+  }
 
   return (
     <motion.div
@@ -67,13 +73,17 @@ export default function ProductDetail({ products }) {
           <h1 className="text-3xl font-bold mb-4">Detail :</h1>
           <p>{product.detail}</p>
 
-          <button
-            // className="bg-primary text-white px-6 py-2 rounded-full text-lg font-semibold"
-            // whileHover={{ scale: 1.05 }}
-            // whileTap={{ scale: 0.95 }}
+          <motion.button
+            className="text-black px-6 py-2 rounded-full text-lg font-semibold float-right hover:bg-red-700"
+            onClick={buynow}
+            style={{
+              background:"#908d38"
+            }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
           >
-            Add to Cart
-          </button>
+            Buy Now
+          </motion.button>
         </motion.div>
       </div>
     </motion.div>
